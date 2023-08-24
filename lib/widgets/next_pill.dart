@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:pill_pall/widgets/tag.dart';
 
 class NextPill extends StatefulWidget {

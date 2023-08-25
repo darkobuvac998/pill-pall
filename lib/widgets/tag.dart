@@ -25,21 +25,27 @@ class Tag extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius ?? 0), color: color),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
             Icon(icon),
             SizedBox(
               width: 5.0,
             ),
-            Text(
-              text,
-              style: stye,
+            FittedBox(
+              child: Text(
+                text,
+                style: stye,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ] else ...[
-            Text(
-              text,
-              style: stye,
+            FittedBox(
+              child: Text(
+                text,
+                style: stye,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ]
         ],

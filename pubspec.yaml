@@ -109,6 +109,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Satisfy/Satisfy-Regular.ttf
           weight: 400
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/Icons/AppIcons.ttf
+          weight: 400
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

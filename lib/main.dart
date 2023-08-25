@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pill_pall/screens/base_screen.dart';
+import 'package:pill_pall/screens/medicine_detail_screen.dart';
 
 void main() {
   runApp(PillPall());
@@ -22,6 +23,9 @@ class PillPall extends StatelessWidget {
             foregroundColor: Colors.white,
           )),
       home: const BaseScreen(),
+      routes: {
+        MedicineDetailScreen.routeName: (ctx) => const MedicineDetailScreen()
+      },
     );
   }
 }

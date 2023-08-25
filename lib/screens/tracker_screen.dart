@@ -14,8 +14,8 @@ class TrackerScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Next pill in",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              "Next medicine in",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
             ),
             Padding(padding: EdgeInsets.only(top: 10)),
             NextPill()

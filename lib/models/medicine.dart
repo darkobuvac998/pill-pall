@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:pill_pall/models/enums.dart';
+import 'package:pill_pall/util/enums.dart';
 
 class Medicine {
   late final int id;
   late final String name;
   late final DateTime consumptionStart;
+  late final DateTime nextConsumtionTime;
   late final int period;
   late final TimeUnit unit;
   late final double quantity;
@@ -15,6 +16,7 @@ class Medicine {
     required this.id,
     required this.name,
     required this.consumptionStart,
+    required this.nextConsumtionTime,
     required this.period,
     required this.unit,
     required this.quantity,
@@ -26,6 +28,7 @@ class Medicine {
     int? id,
     String? name,
     DateTime? consumptionStart,
+    DateTime? nextConsumtionTime,
     int? period,
     TimeUnit? unit,
     double? quantity,
@@ -36,6 +39,7 @@ class Medicine {
       id: id ?? this.id,
       name: name ?? this.name,
       consumptionStart: consumptionStart ?? this.consumptionStart,
+      nextConsumtionTime: nextConsumtionTime ?? this.nextConsumtionTime,
       period: period ?? this.period,
       unit: unit ?? this.unit,
       quantity: quantity ?? this.quantity,

@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pill_pall/models/medicine.dart';
+import 'package:pill_pall/util/constants.dart';
+import 'package:pill_pall/util/enums.dart';
+import 'package:pill_pall/widgets/medicine_info.dart';
 import 'package:pill_pall/widgets/tag.dart';
 
 class NextPill extends StatefulWidget {
@@ -15,9 +19,16 @@ class _NextPillState extends State<NextPill> {
   Duration duration = Duration();
   Timer? timer;
   bool countDown = true;
-
-  final String imageUrl =
-      "https://images.unsplash.com/photo-1676364423874-19c785db3e61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjY4fHxtZWRpY2luZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60";
+  Medicine medicine = Medicine(
+      id: 1,
+      name: "Paracetamol",
+      consumptionStart: DateTime.now(),
+      nextConsumtionTime: DateTime.now(),
+      period: 3,
+      unit: TimeUnit.day,
+      quantity: 30,
+      startingQuantity: 30,
+      quantityUnit: QuantityUnit.piece);
 
   @override
   void initState() {
@@ -30,25 +41,45 @@ class _NextPillState extends State<NextPill> {
   }
 
   @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(imageUrl), fit: BoxFit.cover),
+                image: NetworkImage(nextPillCoverUrl), fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(15),
             color: Colors.grey.shade200),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              buildTime(),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    buildTime(),
+                    IconButton(
+                        onPressed: () =>
+                            showMedicineInfo(context, medicine: medicine),
+                        icon: Icon(
+                          Icons.info_rounded,
+                          size: 30,
+                          color: Colors.white.withOpacity(0.85),
+                        ))
+                  ]),
               SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.only(left: 6.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(Icons.medication_liquid_outlined),
@@ -70,6 +101,18 @@ class _NextPillState extends State<NextPill> {
     );
   }
 
+  void showMedicineInfo(BuildContext ctx, {required Medicine medicine}) {
+    showDialog(
+        context: ctx,
+        builder: (_) => Dialog(
+              backgroundColor: Colors.white,
+              shadowColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(2))),
+              child: MedicineInfo(medicine: medicine),
+            ));
+  }
+
   Future<bool> _onWillPop() async {
     final isRunning = timer == null ? false : timer!.isActive;
     if (isRunning) {
@@ -81,29 +124,17 @@ class _NextPillState extends State<NextPill> {
   }
 
   void _startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => _substractTime());
-  }
-
-  void _addTime() {
-    const addSeconds = 1;
-    setState(() {
-      final seconds = duration.inSeconds + addSeconds;
-      if (seconds < 0) {
-        timer?.cancel();
-      } else {
-        duration = Duration(seconds: seconds);
-      }
-    });
+    timer = Timer.periodic(Duration(minutes: 1), (_) => _substractTime());
   }
 
   void _substractTime() {
-    const substractSeconds = 1;
+    const substractMinutes = 1;
     setState(() {
-      final seconds = duration.inSeconds - substractSeconds;
-      if (seconds < 0) {
+      final minutes = duration.inMinutes - substractMinutes;
+      if (minutes < 0) {
         timer?.cancel();
       } else {
-        duration = Duration(seconds: seconds);
+        duration = Duration(minutes: minutes);
       }
     });
   }
@@ -125,11 +156,7 @@ class _NextPillState extends State<NextPill> {
         ? "0${duration.inMinutes.remainder(60)}"
         : "${duration.inMinutes.remainder(60)}";
 
-    final seconds = duration.inSeconds.remainder(60) < 10
-        ? "0${duration.inSeconds.remainder(60)}"
-        : "${duration.inSeconds.remainder(60)}";
-
-    return "$hours:$minutes:$seconds";
+    return "$hours h $minutes min";
   }
 
   Widget buildTime() {
@@ -144,7 +171,7 @@ class _NextPillState extends State<NextPill> {
       child: Text(
         time,
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.black, fontSize: 40),
+            fontWeight: FontWeight.w500, color: Colors.black, fontSize: 25),
       ),
     );
   }

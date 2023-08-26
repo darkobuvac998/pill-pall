@@ -17,7 +17,6 @@ class TrackerScreen extends StatelessWidget {
         children: [
           NextPill(),
           Stack(
-            
             children: [
               Container(
                 height: mediaQuery.size.height * 0.05,
@@ -48,7 +47,13 @@ class TrackerScreen extends StatelessWidget {
                   ))
             ],
           ),
-          MedicineItem(medicine: dummyMedicine)
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, inedex) => MedicineItem(medicine: items[inedex]),
+              itemCount: items.length,
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pill_pall/models/medicine.dart';
 import 'package:pill_pall/util/app_icons.dart';
 import 'package:pill_pall/util/enums.dart';
@@ -49,6 +50,9 @@ class _NextPillState extends State<NextPill> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+
+    final date = DateFormat("yMMMEd").format(DateTime.now());
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Container(
@@ -68,8 +72,15 @@ class _NextPillState extends State<NextPill> {
               children: [
                 SizedBox(height: mediaQuery.viewPadding.top),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      date,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontSize: 16),
+                    ),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(
@@ -116,7 +127,6 @@ class _NextPillState extends State<NextPill> {
                   ],
                 ),
                 SizedBox(height: mediaQuery.size.height * 0.02),
-                
               ]),
         ),
       ),

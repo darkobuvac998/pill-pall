@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pill_pall/models/medicine.dart';
 import 'package:pill_pall/screens/medicine_detail_screen.dart';
-import 'package:pill_pall/util/constants.dart';
+import 'package:pill_pall/util/app_icons.dart';
 import 'package:pill_pall/widgets/tag.dart';
 
 class MedicineItem extends StatelessWidget {
@@ -17,23 +17,48 @@ class MedicineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final time = DateFormat('Hm').format(medicine.nextConsumtionTime);
+    final mediaQuery = MediaQuery.of(context);
 
-    return Flexible(
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: () => _navigateToDetailScreen(context),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 6.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
+    return Card(
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _navigateToDetailScreen(context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Dismissible(
+                  background: Container(
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.delete),
+                          SizedBox(
+                            width: mediaQuery.size.width * 0.01,
+                          ),
+                          Text(
+                            "Consumed",
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          SizedBox(
+                            width: mediaQuery.size.width * 0.05,
+                          )
+                        ],
+                      )),
+                  direction: DismissDirection.endToStart,
+                  key: Key(medicine.id.toString()),
+                  onDismissed: (_) {},
                   child: ListTile(
+                    horizontalTitleGap: mediaQuery.size.width * 0.05 * (-1),
                     contentPadding: EdgeInsets.all(0),
                     leading: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(medicineImage),
+                      radius: mediaQuery.size.width * 0.15,
+                      backgroundImage:
+                          AssetImage("assets/images/capsule_white.png"),
                     ),
                     title: Text(
                       medicine.name,
@@ -54,7 +79,7 @@ class MedicineItem extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
                                   radius: 10,
-                                  color: Colors.white,
+                                  color: Colors.black12,
                                 ),
                                 SizedBox(
                                   width: 5,
@@ -65,7 +90,7 @@ class MedicineItem extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
                                   radius: 10,
-                                  color: Colors.white,
+                                  color: Colors.black12,
                                 ),
                               ],
                             ),
@@ -75,7 +100,7 @@ class MedicineItem extends StatelessWidget {
                               Tag(
                                 icon: Icons.watch_later_outlined,
                                 time,
-                                color: Colors.white.withOpacity(0.7),
+                                color: Colors.black12,
                                 radius: 10,
                                 stye: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
@@ -87,10 +112,10 @@ class MedicineItem extends StatelessWidget {
                           )
                         ]),
                   ),
-                )
-              ],
-            ),
-          ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

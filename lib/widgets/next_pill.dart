@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pill_pall/models/medicine.dart';
-import 'package:pill_pall/util/constants.dart';
+import 'package:pill_pall/util/app_icons.dart';
 import 'package:pill_pall/util/enums.dart';
 import 'package:pill_pall/widgets/medicine_info.dart';
 import 'package:pill_pall/widgets/tag.dart';
@@ -48,37 +48,58 @@ class _NextPillState extends State<NextPill> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Container(
+        height: mediaQuery.size.height * 0.275,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(nextPillCoverUrl), fit: BoxFit.cover),
-            borderRadius: BorderRadius.circular(15),
+                image: AssetImage("assets/images/home_cover.png"),
+                fit: BoxFit.cover),
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(mediaQuery.size.width * 0.1)),
             color: Colors.grey.shade200),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        child: Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: mediaQuery.viewPadding.top),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    buildTime(),
                     IconButton(
-                        onPressed: () =>
-                            showMedicineInfo(context, medicine: medicine),
+                        onPressed: () {},
                         icon: Icon(
-                          Icons.info_rounded,
-                          size: 30,
-                          color: Colors.white.withOpacity(0.85),
+                          AppIcons.bell_slash,
+                          color: Colors.black87.withOpacity(0.55),
                         ))
-                  ]),
-              SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.only(left: 6.0),
-                child: Row(
+                  ],
+                ),
+                Expanded(child: SizedBox(height: 10)),
+                Text(
+                  "Next pill in:",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                SizedBox(height: 10),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      buildTime(),
+                      IconButton(
+                          onPressed: () =>
+                              showMedicineInfo(context, medicine: medicine),
+                          icon: Icon(
+                            Icons.info_rounded,
+                            size: 30,
+                            color: Colors.black87.withOpacity(0.55),
+                          ))
+                    ]),
+                SizedBox(height: 10),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -89,14 +110,14 @@ class _NextPillState extends State<NextPill> {
                     Tag(
                       "Paracetamol",
                       color: Colors.white.withOpacity(0.55),
-                      radius: 15,
+                      radius: 5,
                       stye: TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
-              ),
-              SizedBox(height: 10),
-            ]),
+                SizedBox(height: mediaQuery.size.height * 0.02),
+              ]),
+        ),
       ),
     );
   }
@@ -164,9 +185,8 @@ class _NextPillState extends State<NextPill> {
 
     return Container(
       padding: EdgeInsets.all(6),
-      margin: EdgeInsets.only(left: 6),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(5),
           color: Colors.white.withOpacity(0.55)),
       child: Text(
         time,

@@ -14,6 +14,18 @@ class PillPall extends StatelessWidget {
     return MaterialApp(
       title: 'Pill Pall',
       theme: ThemeData(
+          textTheme: const TextTheme(
+              headlineMedium: TextStyle(
+                  fontFamily: 'Satisfy',
+                  color: Colors.black,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w500)),
+          primaryTextTheme: const TextTheme(
+              headlineMedium: TextStyle(
+                  fontFamily: 'Roboto',
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500)),
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
           fontFamily: 'Roboto',

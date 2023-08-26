@@ -15,6 +15,21 @@ class PillPall extends StatelessWidget {
       title: 'Pill Pall',
       theme: ThemeData(
           textTheme: const TextTheme(
+              labelMedium: TextStyle(
+                  fontFamily: 'Oswald',
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400),
+              labelSmall: TextStyle(
+                  fontFamily: 'Roboto',
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+              headlineSmall: TextStyle(
+                  fontFamily: 'Roboto',
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400),
               headlineMedium: TextStyle(
                   fontFamily: 'Satisfy',
                   color: Colors.black,
@@ -31,7 +46,7 @@ class PillPall extends StatelessWidget {
           fontFamily: 'Roboto',
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Color.fromARGB(255, 149, 231, 154),
+            backgroundColor: Color.fromARGB(255, 255, 213, 83),
             foregroundColor: Colors.white,
           )),
       home: const BaseScreen(),

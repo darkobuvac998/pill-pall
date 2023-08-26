@@ -116,6 +116,7 @@ class _NextPillState extends State<NextPill> {
                   ],
                 ),
                 SizedBox(height: mediaQuery.size.height * 0.02),
+                
               ]),
         ),
       ),

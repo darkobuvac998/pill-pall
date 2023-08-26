@@ -8,19 +8,45 @@ class TrackerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   "Next medicine in",
-          //   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-          // ),
-          // Padding(padding: EdgeInsets.only(top: 10)),
           NextPill(),
-          SizedBox(
-            height: 20,
+          Stack(
+            
+            children: [
+              Container(
+                height: mediaQuery.size.height * 0.05,
+                color: Color.fromARGB(255, 255, 213, 83),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(mediaQuery.size.width * 0.1))),
+                height: mediaQuery.size.height * 0.05,
+              ),
+              Positioned(
+                  left: mediaQuery.size.width * 0.05,
+                  bottom: mediaQuery.size.height * 0.01,
+                  child: Text(
+                    "Today",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  )),
+              Positioned(
+                  right: mediaQuery.size.width * 0.01,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'See all',
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ))
+            ],
           ),
           MedicineItem(medicine: dummyMedicine)
         ],
